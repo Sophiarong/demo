@@ -2,7 +2,7 @@ package com.example.demo.entity;
 
 import java.io.Serializable;
 
-public class AjaxResponseBody implements Serializable {
+public class AjaxResponseBody implements Serializable{
 
     private String status;
     private String msg;
@@ -41,3 +41,4 @@ public class AjaxResponseBody implements Serializable {
         this.jwtToken = jwtToken;
     }
 }
+

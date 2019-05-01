@@ -24,3 +24,4 @@ public class AjaxAccessDeniedHandler implements AccessDeniedHandler {
         httpServletResponse.getWriter().write(JSON.toJSONString(responseBody));
     }
 }
+

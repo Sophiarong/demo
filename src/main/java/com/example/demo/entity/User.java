@@ -1,17 +1,56 @@
 package com.example.demo.entity;
 
-import lombok.Getter;
-import lombok.Setter;
+import com.alibaba.fastjson.JSON;
+import lombok.Data;
 
-@Setter
-@Getter
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+@Data
+@Entity
+@Table(name="user_t")
 public class User {
 
+    public enum Role {
+        Admin,Normal
+    }
+
+    @Id
     private String id;
-    private String userName;
+    private String username;
     private String password;
     private String telephone;
-    private int authority;
+
+    @Convert(converter = RoleConverter.class)
+    private List<Role> roles;
+
+    private static class RoleConverter implements AttributeConverter<List, String> {
+
+        @Override
+        public String convertToDatabaseColumn(List o) {
+            if (o.isEmpty()) {
+                return "";
+            }
+
+            StringBuilder builder = new StringBuilder();
+            for (Role s : (List<Role>) o) {
+                builder.append(s).append(",");
+            }
+            return builder.substring(0, builder.length() - 1);
+        }
+
+        @Override
+        public List convertToEntityAttribute(String o) {
+            String[] items = o.split(",");
+            List<Role> list = new ArrayList<>();
+            for (String item : items) {
+                list.add(Role.valueOf(item));
+            }
+            return list;
+        }
+    }
 
     public String getId() {
         return id;
@@ -21,12 +60,12 @@ public class User {
         this.id = id;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPassword() {
@@ -45,20 +84,24 @@ public class User {
         this.telephone = telephone;
     }
 
-    public int getAuthority() {
-        return authority;
+    public List<Role> getRoles() {
+        return roles;
     }
 
-    public void setAuthority(int authority) {
-        this.authority = authority;
-    }
-
-    public String toString(){
-        return "user:" + userName + "/password" + password + "telephone" + telephone;
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
     }
 
 
-
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", userName='" + username + '\'' +
+                ", telephone=" + telephone+ '\'' +
+                ", roles=" + roles    +
+                '}';
+    }
 
 }
 

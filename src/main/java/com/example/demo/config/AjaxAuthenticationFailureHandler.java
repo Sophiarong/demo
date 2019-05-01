@@ -2,6 +2,7 @@ package com.example.demo.config;
 
 import com.alibaba.fastjson.JSON;
 import com.example.demo.entity.AjaxResponseBody;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.stereotype.Component;
@@ -24,3 +25,4 @@ public class AjaxAuthenticationFailureHandler implements AuthenticationFailureHa
         httpServletResponse.getWriter().write(JSON.toJSONString(responseBody));
     }
 }
+
