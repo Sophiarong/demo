@@ -1,0 +1,9 @@
+#开发配置
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/plantsystem?useSSL=false&useUnicode=true&characterEncoding=utf8&serverTimezone=UTC
+    username: root
+    password: hrhrt6602
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    # 使用druid数据源
+#    type: com.alibaba.druid.pool.DruidDataSource

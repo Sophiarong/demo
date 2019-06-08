@@ -5,12 +5,11 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @Data
 @Entity
-@Table(name="user_t")
+@Table(name="user_info")
 public class User {
 
     public enum Role {
@@ -18,11 +17,15 @@ public class User {
     }
 
     @Id
-    private String id;
+    @Column(name = "user_id")
+    private int userid;
+    @Column(name = "user_name")
     private String username;
+    @Column(name = "user_password")
     private String password;
+    @Column(name = "user_telephone")
     private String telephone;
-
+    @Column(name = "user_roles")
     @Convert(converter = RoleConverter.class)
     private List<Role> roles;
 
@@ -52,12 +55,12 @@ public class User {
         }
     }
 
-    public String getId() {
-        return id;
+    public int getId() {
+        return userid;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setId(int id) {
+        this.userid = id;
     }
 
     public String getUsername() {
@@ -96,12 +99,11 @@ public class User {
     @Override
     public String toString() {
         return "User{" +
-                "id=" + id +
+                "id=" + userid +
                 ", userName='" + username + '\'' +
                 ", telephone=" + telephone+ '\'' +
                 ", roles=" + roles    +
                 '}';
     }
-
 }
 
